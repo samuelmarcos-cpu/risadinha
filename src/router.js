@@ -4,8 +4,6 @@ const controller = require('./controllers/controller')
 
 router.get('/', controller.renderHomePage)
 
-router.post('/', controller.getWeather)
-
 router.post('/pun', controller.createPun)
 
 router.get('/about', controller.renderAboutPage)

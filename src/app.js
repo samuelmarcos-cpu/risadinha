@@ -1,6 +1,5 @@
 const express = require('express')
-const { ExpressPeerServer } = require('peer')
-const redis = require('./repositories/index')
+const buildPeerServer = require('./config/peerServer')
 
 const app = express()
 const router = require('./router')
@@ -17,18 +16,4 @@ const server = app.listen(3000, () => {
   console.log('Servidor rodando...')
 })
 
-const peerServer = ExpressPeerServer(server, {
-  path: '/myapp'
-})
-
-peerServer.on('connection', client => {
-  redis.lpush('comedians', client.getId())
-  console.log('connection', client.getId())
-})
-
-peerServer.on('disconnect', client => {
-  redis.lrem('comedians', 0, client.getId())
-  console.log('disconnect', client.getId())
-})
-
-app.use('/peerjs', peerServer)
+app.use('/peerjs', buildPeerServer(server))

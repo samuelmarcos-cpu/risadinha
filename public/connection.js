@@ -51,7 +51,6 @@ peer.on('open', function (id) {
     }
   }).then(res => {
     res.json().then(({ id }) => {
-      console.log('CLIENT ID', id)
       if (id != null) {
         conn = peer.connect(id)
         configConnection(conn)

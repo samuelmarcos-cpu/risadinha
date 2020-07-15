@@ -1,34 +1,8 @@
-const redis = require('../repositories')
-const axios = require('axios')
-const API_KEY = '383126a3c11209ee222def0c28b6340e'
-
-const Weather = require('../model/Weather')
 const Pun = require('../model/Pun')
+const { Comedians, Comedian } = require('../model/Comedians')
 
 exports.renderHomePage = (req, res) => {
   res.render('index')
-}
-
-exports.getWeather = (req, res) => {
-  const weather = new Weather(req.body.city)
-  weather.validateUserInput()
-  if (weather.errors.length) {
-    res.render('index', {
-      error: weather.errors.toString()
-    })
-  } else {
-    const url = `http://api.openweathermap.org/data/2.5/weather?q=${weather.data}&appid=${API_KEY}&units=metric`
-    axios
-      .get(url)
-      .then(response => {
-        res.render('index', {
-          weather: `It is currently ${response.data.main.temp} in ${response.data.name}`
-        })
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
 }
 
 exports.renderAboutPage = (req, res) => {
@@ -36,25 +10,31 @@ exports.renderAboutPage = (req, res) => {
 }
 
 exports.createPun = (req, res) => {
-  const result = req.body
-  const pun = new Pun(result.question, result.answer)
+  const { question, answer } = req.body
+  let options = {}
+
+  const empty = vl => vl == undefined || vl == null || vl == ''
+  if (empty(question) || empty(answer)) {
+    res.status(400).render('index', options)
+  }
+
+  const pun = new Pun(question, answer)
   pun.validateUserInput()
   if (pun.errors.length) {
-    res.render('index', {
-      error: pun.errors
-    })
+    res.status(400)
+    options.error = pun.errors
   } else {
     pun
       .save()
       .then(() => {
-        res.render('index', {
-          pun: `Trocadilho enviado com sucesso`
-        })
+        res.status(201)
+        options.pun = `Trocadilho enviado com sucesso`
       })
       .catch(error => {
         console.log(error)
       })
   }
+  res.render('index', options)
 }
 
 exports.renderGame = (req, res) => {
@@ -62,17 +42,25 @@ exports.renderGame = (req, res) => {
 }
 
 exports.findOpponent = (req, res) => {
-  const clientId = req.body.id
-  redis.brpop('comedians', 100, (err, [key, id]) => {
-    console.log('ERR', err)
-    console.log('POP', id)
-    if (clientId == id) {
-      redis.lpush('comedians', id)
-      console.log('PUSH', id)
-      res.json({ id: null })
-    } else {
-      redis.lrem('comedians', 0, clientId)
-      res.json({ id })
-    }
-  })
+  let payload = { id: null }
+  try {
+    const comedian = new Comedian(req.body.id)
+    Comedians.brpop(100, (err, [key, id]) => {
+      console.log('ERR', err)
+      console.log('POP', id)
+      if (comedian.id == id) {
+        comedian.push()
+        res.status(204)
+        console.log('PUSH', id)
+      } else {
+        comedian.remove()
+        payload.id = id
+        res.status(200)
+      }
+      res.json(payload)
+    })
+  } catch (e) {
+    res.status(400).json(payload)
+    console.log('ERROR', e)
+  }
 }
