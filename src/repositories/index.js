@@ -1,13 +1,15 @@
+// Update with your config settings.
+require('dotenv').config()
 const redis = require('redis')
 
 const client = redis.createClient({
-  port: 6379,
-  host: '192.168.99.100'
+  host: process.env.APP_REDIS_HOST,
+  port: process.env.APP_REDIS_PORT
 })
 
-// client.auth('password', function (err) {
-//   if (err) throw err
-// })
+client.auth(process.env.APP_REDIS_PASSWORD, function (err) {
+  if (err) throw err
+})
 
 // client.on('error', function (err) {
 //   console.log('Error ' + err)
