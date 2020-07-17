@@ -1,5 +1,6 @@
 import Peer from 'peerjs'
 import peerConfig from './config/peer'
+import getUserMedia from 'getusermedia'
 
 function configConnection (conn) {
   conn.on('open', function () {
@@ -11,60 +12,82 @@ function configConnection (conn) {
   conn.on('close', function () {
     console.log('CLOSE', 'Connection closed')
   })
-
   return conn
 }
 
-const peer = new Peer(null, peerConfig)
-let conn
-
-peer.on('open', function () {
-  console.log('ID: ' + peer.id)
-
-  fetch('/find-opponent', {
-    method: 'POST',
-    body: JSON.stringify({ id: peer.id }),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8'
-    }
-  }).then(res => {
-    res
-      .json()
-      .then(({ id }) => {
-        conn = peer.connect(id)
-        configConnection(conn)
-      })
-      .catch(e => {
-        console.log('Esperando conexão...')
-      })
+function configCall (peer, id, stream, video) {
+  const call = peer.call(id, stream)
+  call.answer(stream)
+  call.on('stream', function (remoteStream) {
+    video.srcObject = remoteStream
+    video.play()
   })
-})
+  return call
+}
 
-peer.on('close', function () {
-  conn = null
-  console.log('Connection destroyed')
-})
+getUserMedia({ video: true, audio: true }, (err, stream) => {
+  console.log('getUserMedia', err, stream)
 
-peer.on('connection', function (c) {
-  if (conn && conn.open) {
-    c.on('open', function () {
-      c.send('Already connected to another client')
-      setTimeout(function () {
-        c.close()
-      }, 500)
+  const peer = new Peer(null, peerConfig)
+  const videoRemote = document.getElementById('videoRemote')
+
+  peer.on('open', function () {
+    console.log('ID: ' + peer.id)
+
+    fetch('/find-opponent', {
+      method: 'POST',
+      body: JSON.stringify({ id: peer.id }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    }).then(res => {
+      res
+        .json()
+        .then(({ id }) => {
+          configConnection(peer.connect(id))
+          configCall(peer, id, stream, videoRemote)
+        })
+        .catch(e => {
+          console.log('Esperando conexão...')
+        })
     })
-    return
-  }
+  })
 
-  conn = c
-  configConnection(conn)
-  console.log('Connected to: ' + conn.peer)
-})
+  peer.on('close', function () {
+    console.log('Connection destroyed')
+  })
 
-peer.on('disconnected', function () {
-  console.log('Connection lost. Please reconnect')
-})
+  peer.on('connection', function (conn) {
+    console.log('KEYS', Object.keys(peer.connections).length)
 
-peer.on('error', function (err) {
-  console.log(err)
+    if (Object.keys(peer.connections).length > 1) {
+      conn.on('open', function () {
+        conn.send('Already connected to another client')
+        setTimeout(function () {
+          conn.close()
+        }, 500)
+      })
+      return
+    }
+
+    configConnection(conn)
+    console.log('Connected to: ' + conn.peer)
+  })
+
+  peer.on('disconnected', function () {
+    console.log('Connection lost. Please reconnect')
+  })
+
+  peer.on('call', function (call) {
+    call.answer(stream)
+    call.on('stream', function (remoteStream) {
+      console.log('CALL', remoteStream)
+      videoRemote.srcObject = remoteStream
+      videoRemote.play()
+    })
+  })
+
+  peer.on('error', function (err) {
+    console.log(err)
+  })
 })

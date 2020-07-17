@@ -1,13 +1,14 @@
 const redis = require('../repositories')
+const { isUuid } = require('uuidv4')
 
 const key = 'comedians'
 
 function validateId (id) {
-  const test = id == undefined || id == null || id == ''
-  if (test) {
-    throw new Error('invalid id')
-  }
-  return test == false
+  const empty = value => value == undefined || value == null || value == ''
+  console.log('isUuid', id, isUuid(id))
+  const valid = empty(id) == false && isUuid(id)
+  if (empty(id) || valid == false) throw new Error('invalid id')
+  return valid
 }
 
 class Comedian {
