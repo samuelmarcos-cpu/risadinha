@@ -1,0 +1,24 @@
+POST http://localhost:3000/find-opponent
+content-type: application/json
+
+{
+    "id": ""
+}
+
+###
+
+POST http://localhost:3000/find-opponent
+content-type: application/json
+
+{
+    "id": "1"
+}
+
+###
+
+POST http://localhost:3000/find-opponent
+content-type: application/json
+
+{
+    "id": "c1d88e80-7786-44b9-a1fe-8da6d7f7610a"
+}

@@ -6,8 +6,6 @@ router.get('/', controller.renderHomePage)
 
 router.post('/pun', controller.createPun)
 
-router.get('/about', controller.renderAboutPage)
-
 router.get('/game', controller.renderGame)
 
 router.post('/find-opponent', controller.findOpponent)

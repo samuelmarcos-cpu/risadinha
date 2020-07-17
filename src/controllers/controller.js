@@ -5,10 +5,6 @@ exports.renderHomePage = (req, res) => {
   res.render('index')
 }
 
-exports.renderAboutPage = (req, res) => {
-  res.render('About')
-}
-
 exports.createPun = (req, res) => {
   const { question, answer } = req.body
   let options = {}
