@@ -42,7 +42,7 @@ exports.renderGame = (req, res) => {
 }
 
 exports.findOpponent = (req, res) => {
-  let payload = { id: null }
+  let payload = { id: '' }
   try {
     const comedian = new Comedian(req.body.id)
     Comedians.brpop(100, (err, [key, id]) => {
