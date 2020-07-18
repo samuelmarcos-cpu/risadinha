@@ -1,5 +1,7 @@
+import os from 'os'
+
 module.exports = {
-  host: process.env.HOST || 'localhost',
+  host: os.hostname() || 'localhost',
   port: process.env.PORT || 3000,
   path: '/peerjs/myapp',
   debug: 0
