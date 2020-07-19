@@ -1,9 +1,13 @@
 const { ExpressPeerServer } = require('peer')
 const { Comedian } = require('../model/Comedians')
+const os = require('os')
 
 module.exports = function (server) {
   const peerServer = ExpressPeerServer(server, {
-    path: '/myapp'
+    host: os.hostname(),
+    port: process.env.PORT || 3186,
+    path: '/myapp',
+    ssl: true
   })
 
   peerServer.on('connection', client => {
