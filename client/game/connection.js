@@ -33,23 +33,23 @@ getUserMedia({ video: true, audio: true }, (err, stream) => {
   peer.on('open', function () {
     console.log('ID: ' + peer.id)
 
-    fetch('/find-opponent', {
-      method: 'POST',
-      body: JSON.stringify({ id: peer.id }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    }).then(res => {
-      res
-        .json()
-        .then(({ id }) => {
-          configConnection(peer.connect(id))
-          configCall(peer, id, stream, videoRemote)
-        })
-        .catch(e => {
-          console.log('Esperando conexão...')
-        })
-    })
+    // fetch('/find-opponent', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ id: peer.id }),
+    //   headers: {
+    //     'Content-type': 'application/json; charset=UTF-8'
+    //   }
+    // }).then(res => {
+    //   res
+    //     .json()
+    //     .then(({ id }) => {
+    //       configConnection(peer.connect(id))
+    //       configCall(peer, id, stream, videoRemote)
+    //     })
+    //     .catch(e => {
+    //       console.log('Esperando conexão...')
+    //     })
+    // })
   })
 
   peer.on('close', function () {
