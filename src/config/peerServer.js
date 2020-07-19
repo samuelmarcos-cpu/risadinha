@@ -6,7 +6,8 @@ module.exports = function (server) {
   const peerServer = ExpressPeerServer(server, {
     host: os.hostname(),
     port: process.env.PORT || 3186,
-    path: '/myapp'
+    path: '/myapp',
+    debug: true
   })
 
   peerServer.on('connection', client => {

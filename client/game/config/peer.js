@@ -10,6 +10,6 @@ export default {
   host,
   port,
   path: '/peerjs/myapp',
-  debug: 0,
-  key: 'peerjs'
+  key: 'peerjs',
+  debug: 3
 }
