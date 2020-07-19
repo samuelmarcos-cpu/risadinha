@@ -106,7 +106,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var slim
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! os */ \"./node_modules/os-browserify/browser.js\");\n/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(os__WEBPACK_IMPORTED_MODULE_0__);\n\nvar host = os__WEBPACK_IMPORTED_MODULE_0___default.a.hostname();\nvar port = 3186;\nconsole.log('HOST', host);\nconsole.log('PORT', port);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  secure: false,\n  host: host,\n  port: port,\n  path: '/peerjs/myapp',\n  key: 'peerjs',\n  debug: 3\n});\n\n//# sourceURL=webpack:///./client/game/config/peer.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! os */ \"./node_modules/os-browserify/browser.js\");\n/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(os__WEBPACK_IMPORTED_MODULE_0__);\n\nvar host = os__WEBPACK_IMPORTED_MODULE_0___default.a.hostname();\nvar port = 3186;\nconsole.log('HOST', host);\nconsole.log('PORT', port);\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  host: host,\n  port: port,\n  path: '/peerjs/myapp',\n  key: 'peerjs',\n  secure: false,\n  debug: 3\n});\n\n//# sourceURL=webpack:///./client/game/config/peer.js?");
 
 /***/ }),
 

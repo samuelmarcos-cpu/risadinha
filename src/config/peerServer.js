@@ -7,6 +7,8 @@ module.exports = function (server) {
     host: os.hostname(),
     port: process.env.PORT || 3186,
     path: '/myapp',
+    key: 'peerjs',
+    allow_discovery: true,
     debug: true
   })
 
