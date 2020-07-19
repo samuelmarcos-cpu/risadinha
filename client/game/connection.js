@@ -1,4 +1,3 @@
-import Peer from 'peerjs'
 import peerConfig from './config/peer'
 import getUserMedia from 'getusermedia'
 
