@@ -1,5 +1,5 @@
 import 'slim-js'
-import 'slim-js/directives/all'
+import 'slim-js/directives/if'
 
 const PUN = Object.freeze({
   QUESTION: 'Question',
