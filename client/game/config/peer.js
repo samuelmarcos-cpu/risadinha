@@ -9,7 +9,7 @@ console.log('PORT', port)
 export default {
   host,
   port,
-  path: '/peerjs/myapp',
+  path: '/peerjs',
   key: 'peerjs',
   secure: false,
   debug: 3
