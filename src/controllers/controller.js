@@ -38,25 +38,24 @@ exports.renderGame = (req, res) => {
 }
 
 exports.findOpponent = (req, res) => {
+  const comedian = new Comedian(req.body.id)
   let payload = { id: '' }
-  try {
-    const comedian = new Comedian(req.body.id)
-    Comedians.brpop(100, (err, [key, id]) => {
-      console.log('ERR', err)
-      console.log('POP', id)
-      if (comedian.id == id) {
-        comedian.push()
-        res.status(204)
-        console.log('PUSH', id)
-      } else {
-        comedian.remove()
-        payload.id = id
-        res.status(200)
-      }
+
+  Comedians.llen((err, length) => {
+    if (length == 0) {
+      comedian.push()
+      res.status(204)
       res.json(payload)
-    })
-  } catch (e) {
-    res.status(400).json(payload)
-    console.log('ERROR', e)
-  }
+    } else {
+      try {
+        Comedians.brpop(100, (err, [key, id]) => {
+          payload.id = id
+          res.status(200)
+          res.json(payload)
+        })
+      } catch (e) {
+        res.status(400).json(payload)
+      }
+    }
+  })
 }

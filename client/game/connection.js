@@ -1,4 +1,3 @@
-import peerConfig from './config/peer'
 import getUserMedia from 'getusermedia'
 
 function configConnection (conn) {
@@ -27,29 +26,29 @@ function configCall (peer, id, stream, video) {
 getUserMedia({ video: true, audio: true }, (err, stream) => {
   console.log('getUserMedia', err, stream)
 
-  const peer = new Peer(null, peerConfig)
+  const peer = new Peer()
   const videoRemote = document.getElementById('videoRemote')
 
   peer.on('open', function () {
     console.log('ID: ' + peer.id)
 
-    // fetch('/find-opponent', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ id: peer.id }),
-    //   headers: {
-    //     'Content-type': 'application/json; charset=UTF-8'
-    //   }
-    // }).then(res => {
-    //   res
-    //     .json()
-    //     .then(({ id }) => {
-    //       configConnection(peer.connect(id))
-    //       configCall(peer, id, stream, videoRemote)
-    //     })
-    //     .catch(e => {
-    //       console.log('Esperando conexão...')
-    //     })
-    // })
+    fetch('/find-opponent', {
+      method: 'POST',
+      body: JSON.stringify({ id: peer.id }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    }).then(res => {
+      res
+        .json()
+        .then(({ id }) => {
+          configConnection(peer.connect(id))
+          configCall(peer, id, stream, videoRemote)
+        })
+        .catch(e => {
+          console.log('Esperando conexão...')
+        })
+    })
   })
 
   peer.on('close', function () {

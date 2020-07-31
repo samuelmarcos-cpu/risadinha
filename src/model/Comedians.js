@@ -1,12 +1,10 @@
 const redis = require('../repositories')
-const { isUuid } = require('uuidv4')
 
 const key = 'comedians'
 
 function validateId (id) {
   const empty = value => value == undefined || value == null || value == ''
-  console.log('isUuid', id, isUuid(id))
-  const valid = empty(id) == false && isUuid(id)
+  const valid = empty(id) == false // && isUuid(id)
   if (empty(id) || valid == false) throw new Error('invalid id')
   return valid
 }
@@ -37,6 +35,7 @@ module.exports = {
   validateId,
   Comedian,
   Comedians: {
-    brpop: (...args) => redis.brpop(key, ...args)
+    brpop: (...args) => redis.brpop(key, ...args),
+    llen: (...args) => redis.llen(key, ...args)
   }
 }
