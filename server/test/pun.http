@@ -83,3 +83,8 @@ content-type: application/json
 
 POST http://localhost:3000/pun
 content-type: application/json
+
+###
+
+GET http://localhost:3186/random-pun
+content-type: application/json

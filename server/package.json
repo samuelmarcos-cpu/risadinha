@@ -1,0 +1,27 @@
+{
+  "name": "@risadinha/server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsc && node ./ts-build/src/app.js",
+    "tsc:watch": "tsc -w",
+    "dev": "nodemon ./ts-build/src/app.js"
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.7",
+    "@types/express": "^4.17.7",
+    "axios": "^0.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "hbs": "^4.1.1",
+    "knex": "^0.21.1",
+    "mysql": "^2.18.1",
+    "pg": "^8.3.0",
+    "tedis": "^0.1.12"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.7"
+  }
+}

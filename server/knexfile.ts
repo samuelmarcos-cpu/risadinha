@@ -1,25 +1,9 @@
-// Update with your config settings.
-require('dotenv').config()
+import { Config } from 'knex';
 
-const url = process.env.DATABASE_URL
-let config = {}
-if (url) {
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
-  config.client = 'pg'
-  config.connection = url + '?ssl=true'
-} else {
-  config.client = 'mysql'
-  config.connection = {
-    host: process.env.APP_DB_HOST,
-    database: process.env.APP_DB_NAME,
-    user: process.env.APP_DB_USER,
-    port: process.env.APP_DB_PORT,
-    password: process.env.APP_DB_PASSWORD
-  }
-}
+import dotenv = require('dotenv')
+dotenv.config()
 
-module.exports = {
-  ...config,
+const config: Config = {
   pool: {
     min: 2,
     max: 10
@@ -28,3 +12,21 @@ module.exports = {
     tableName: 'knex_migrations'
   }
 }
+
+const url = process.env.DATABASE_URL
+if (url) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+  config.client = 'pg'
+  config.connection = url + '?ssl=true'
+} else {
+  config.client = 'mysql'
+  config.connection = {
+    host: process.env.APP_DB_HOST,
+    database: process.env.APP_DB_NAME,
+    user: process.env.APP_DB_USER,
+    port: parseInt(process.env.APP_DB_PORT || '0'),
+    password: process.env.APP_DB_PASSWORD
+  }
+}
+
+export default config

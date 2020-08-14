@@ -1,4 +1,7 @@
-/.env
+/node_modules/
 /.vscode
-/node_modules
-/package-lock.json
+/public/scripts
+/client/node_modules/
+/server/node_modules/
+/server/.env
+/server/ts-build

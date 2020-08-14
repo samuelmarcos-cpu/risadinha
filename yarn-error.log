@@ -1,0 +1,36 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\nodejs\node_modules\yarn\bin\yarn.js init
+
+PATH: 
+  c:\go\bin;C:\Program Files\AdoptOpenJDK\jre-14.0.1.7-hotspot\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Lua\5.1;C:\Program Files (x86)\Lua\5.1\clibs;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\nodejs;C:\MinGW\bin;C:\Program Files\CMake\bin;C:\flutter\bin;C:\Go\bin;C:\Program Files (x86)\Calibre2\;C:\Users\marco\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\marco\AppData\Local\Programs\Python\Python37\;C:\Users\marco\AppData\Local\Microsoft\WindowsApps;C:\Users\marco\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\LOVE;C:\Users\marco\AppData\Local\atom\bin;C:\Program Files\Docker Toolbox;C:\Users\marco\AppData\Roaming\npm;C:\Users\marco\AppData\Local\GitHubDesktop\bin;C:\tools\dart-sdk\bin;C:\Users\marco\AppData\Roaming\Pub\Cache\bin;C:\Users\marco\go\bin;C:\Program Files\JetBrains\PyCharm Community Edition 2019.3.4\bin;;C:\tools\neovim\Neovim\bin;C:\Program Files\heroku\bin;C:\Users\marco\AppData\Local\Programs\Julia\Julia-1.4.1\bin;
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  12.14.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: canceled
+      at Interface.<anonymous> (C:\Program Files (x86)\nodejs\node_modules\yarn\lib\cli.js:137008:13)
+      at Interface.emit (events.js:223:5)
+      at Interface._ttyWrite (readline.js:885:16)
+      at ReadStream.onkeypress (readline.js:191:10)
+      at ReadStream.emit (events.js:223:5)
+      at emitKeys (internal/readline/utils.js:433:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (readline.js:1151:36)
+      at ReadStream.emit (events.js:223:5)
+      at addChunk (_stream_readable.js:309:12)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

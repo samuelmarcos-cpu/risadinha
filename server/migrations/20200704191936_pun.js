@@ -1,3 +1,8 @@
+const fs = require('fs')
+
+const rawdata = fs.readFileSync('migrations/data.json')
+const puns = JSON.parse(rawdata)
+
 exports.up = function (knex) {
   return knex.schema
     .createTable('pun', table => {
@@ -10,16 +15,7 @@ exports.up = function (knex) {
         .defaultTo(knex.fn.now())
     })
     .then(function () {
-      return knex('pun').insert([
-        {
-          question: 'Melhor jogo 2D do Sonic?',
-          answer: 'Melhor jogo 2D do Sonic?'
-        },
-        {
-          question: 'Melhor Assassins Creed',
-          answer: 'Melhor Assassins Creed'
-        }
-      ])
+      return knex('pun').insert(puns)
     })
 }
 
