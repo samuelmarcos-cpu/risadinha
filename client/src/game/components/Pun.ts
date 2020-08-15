@@ -10,7 +10,7 @@ import 'slim-js/directives/if'
       <h5 class="card-title">{{getTitle(showAnswer)}}</h5>
       <p s:if="!showAnswer" class="card-text">{{question}}</p>
       <p s:if="showAnswer" class="card-text">{{answer}}</p>
-      <button s:id="toggle" class="btn btn-primary">Turn</button
+      <button s:id="toggle" class="btn btn-primary">Turn</button>
     </div>
   </div>`)
 export default class Pun extends Slim {

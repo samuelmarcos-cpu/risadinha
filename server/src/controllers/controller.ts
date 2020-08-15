@@ -12,34 +12,35 @@ export const renderHomePage: RequestHandler = (req, res) => {
   res.render('index')
 }
 
-export const createPun: RequestHandler = (req, res) => {
+export const createPun: RequestHandler<any, any, {
+  question: string,
+  answer: string
+}> = async (req, res) => {
   const { question, answer } = req.body
   let options: { pun: string, error: string[] } = {
     pun: "",
     error: []
   }
 
-  const empty = (vl: any) => vl == undefined || vl == null || vl == ''
-  if (empty(question) || empty(answer)) {
-    res.status(400).render('index', options)
-  }
-
   const pun = new Pun(question, answer)
   pun.validateUserInput()
+
   if (pun.getErrors().length) {
-    res.status(400)
     options.error = pun.getErrors()
+    res.status(400)
   } else {
-    pun
-      .save()
-      .then(() => {
-        res.status(201)
-        options.pun = `Trocadilho enviado com sucesso`
-      })
-      .catch((error: Error) => {
-        console.log(error)
-      })
+    try {
+      await pun.save()
+    }
+    catch (err) {
+      console.log("PUN SAVE", err)
+      res.status(400)
+    }
+
+    options.pun = `Trocadilho enviado com sucesso`
+    res.status(201)
   }
+
   res.render('index', options)
 }
 
@@ -58,31 +59,25 @@ export const renderGame: RequestHandler = (req, res) => {
   res.render('game')
 }
 
-export const findOpponent: RequestHandler = async (req, res, next) => {
-  let payload = { id: req.body.id }
-  console.log("START", payload)
+export const findOpponent: RequestHandler<any, any, { id: string }> = async (req, res) => {
+  const payload = req.body
 
   try {
+    const comedian = new Comedian(redis, payload.id)
     const length = await redis.llen(Comedian.KEY)
-    console.log("LLEN", length)
 
     if (length == 0) {
-      console.log("PUSH")
-
-      const comedian = new Comedian(redis, payload.id)
       await comedian.push()
       res.status(204)
-        .json(payload)
     } else {
       const [key, id] = await redis.brpop(100, Comedian.KEY)
-      console.log("BRPOP", id)
-
+      payload.id = id || ""
       res.status(200)
-      payload.id = id
-      res.json(payload)
     }
   } catch (err) {
-    console.log("ERROR", err)
-    res.status(400).json(payload)
+    console.log("FIND OPPONENT", err)
+    res.status(400)
   }
+
+  res.json(payload)
 }

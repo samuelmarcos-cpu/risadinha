@@ -2,6 +2,7 @@ import { Tedis } from 'tedis'
 
 export default class Comedian {
   static readonly KEY = 'comedians'
+
   private redis: Tedis
   private id: string
 
@@ -19,7 +20,8 @@ export default class Comedian {
     this.id = id.trim()
   }
 
-  push() {
+  async push() {
+    await this.remove()
     return this.redis.lpush(Comedian.KEY, this.getId())
   }
 

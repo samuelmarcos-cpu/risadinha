@@ -1,2 +1,3 @@
 import './components/RandomPun'
-import './connection'
+import './peer'
+// import './connection'

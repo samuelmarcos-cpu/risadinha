@@ -7,43 +7,37 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
   <title>Trocadilho | Principal</title>
-  {{!-- Bootstrap core CSS --}}
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+    integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
 </head>
 
 <body>
-  {{!-- Page Content --}}
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center main">
-        <div class="my-5">
-          <h1 class="my-3">Tente não rir</h1>
-          <a class="btn btn-primary" href="/game">Começar</a>
-        </div>
-        <div>
-          <p class="lead">Nos envie seu trocadiho</p>
-          <form action="/pun" method="post" class="col-lg-6 mx-auto">
-            <div class="form-group">
-              <label for="question">Pergunta</label>
-              <textarea class="form-control container-fluid" name="question" id="question" rows="5"></textarea>
-            </div>
-            <div class="form-group">
-              <label for="answer">Resposta</label>
-              <textarea class="form-control container-fluid" name="answer" id="answer" rows="5"></textarea>
-            </div>
-            <button class="btn btn-primary">enviar</button>
-          </form>
-          <div class="mt-3">
-            {{pun}}
-            {{#each error}}
-            <ul class="erros">
-              <li>{{this}}</li>
-            </ul>
-            {{/each}}
-          </div>
-        </div>
+  <h1>Tente não rir</h1>
+  <a class="pure-button pure-button-primary" href="/game">Começar</a>
+  <p>Envie seu trocadiho</p>
+  <form action="/pun" method="post" class="pure-form">
+    <fieldset>
+      <div class="pure-control-group">
+        <label for="question">Pergunta</label>
+        <textarea class="pure-input" name="question" id="question" rows="5"></textarea>
       </div>
-    </div>
+      <div class="pure-control-group">
+        <label for="answer">Resposta</label>
+        <textarea class="pure-input" name="answer" id="answer" rows="5"></textarea>
+      </div>
+      <div class="pure-controls">
+        <button type="submit" class="pure-button">Submit</button>
+      </div>
+    </fieldset>
+  </form>
+  <div>
+    {{pun}}
+    {{#each error}}
+    <ul class="erros">
+      <li>{{this}}</li>
+    </ul>
+    {{/each}}
   </div>
 </body>
 

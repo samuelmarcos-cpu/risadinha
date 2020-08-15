@@ -7,20 +7,43 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Game</title>
-    {{!-- Bootstrap core CSS --}}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
-        rel="stylesheet" />
-    {{!-- Scripts --}}
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+
     <script src="scripts/game.js"></script>
 </head>
 
 <body>
-    <div>
-        <div class="embed-responsive embed-responsive-16by9 my-5">
+    {{!-- <div class="embed-responsive embed-responsive-16by9 my-5">
             <video id="videoRemote" class="embed-responsive-item" width="320" height="240" autoplay></video>
-        </div>
-        <x-random-pun></x-random-pun>
-    </div>
+        </div> --}}
+
+    <form class="pure-form pure-form-aligned">
+        <fieldset>
+            <div class="pure-control-group">
+                <label for="peer-id">Seu Peer ID</label>
+                <input type="text" id="peer-id" readonly />
+            </div>
+            <div class="pure-control-group">
+                <label for="aligned-password">Password</label>
+                <input type="password" id="aligned-password" placeholder="Password" />
+            </div>
+            <div class="pure-control-group">
+                <label for="aligned-email">Email Address</label>
+                <input type="email" id="aligned-email" placeholder="Email Address" />
+            </div>
+            <div class="pure-control-group">
+                <label for="aligned-foo">Supercalifragilistic Label</label>
+                <input type="text" id="aligned-foo" placeholder="Enter something here..." />
+            </div>
+            <div class="pure-controls">
+                <label for="aligned-cb" class="pure-checkbox">
+                    <input type="checkbox" id="aligned-cb" /> I&#x27;ve read the terms and conditions</label>
+                <button type="submit" class="pure-button pure-button-primary">Submit</button>
+            </div>
+        </fieldset>
+    </form>
 </body>
 
 </html>
