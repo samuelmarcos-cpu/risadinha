@@ -12,10 +12,10 @@ interface PunLabels {
 @useShadow(false)
 @template(
   `<div class="card text-center border-primary">
-    <div class="card-body">
-      <button s:id="change" class="btn btn-primary mb-2">Change</button>
-      <x-pun id="pun" bind:question="pun.question" bind:answer="pun.answer"></x-pun>
-    </div>
+  <div class="card-body">
+  <button s:id="change" class="btn btn-primary mb-2">Change</button>
+  <x-pun id="pun" bind:question="pun.question" bind:answer="pun.answer"></x-pun>
+  </div>
   </div>`)
 export default class RandomPun extends Slim {
   private change = this.find(`#change`)

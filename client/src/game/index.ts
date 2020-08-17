@@ -1,3 +1,3 @@
+import './components/ShowConnection'
+import './components/PeerMenu'
 import './components/RandomPun'
-import './peer'
-// import './connection'

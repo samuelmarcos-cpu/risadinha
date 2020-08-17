@@ -6,12 +6,12 @@ import 'slim-js/directives/if'
 @useShadow(false)
 @template(
   `<div class="card text-center border-primary">
-    <div class="card-body">
-      <h5 class="card-title">{{getTitle(showAnswer)}}</h5>
-      <p s:if="!showAnswer" class="card-text">{{question}}</p>
-      <p s:if="showAnswer" class="card-text">{{answer}}</p>
-      <button s:id="toggle" class="btn btn-primary">Turn</button>
-    </div>
+  <div class="card-body">
+  <h5 class="card-title">{{getTitle(showAnswer)}}</h5>
+  <p s:if="!showAnswer" class="card-text">{{question}}</p>
+  <p s:if="showAnswer" class="card-text">{{answer}}</p>
+  <button s:id="toggle" class="btn btn-primary">Turn</button>
+  </div>
   </div>`)
 export default class Pun extends Slim {
   static readonly DEFAULT = ""

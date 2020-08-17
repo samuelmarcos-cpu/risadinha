@@ -8,36 +8,40 @@
   <meta name="author" content="" />
   <title>Trocadilho | Principal</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
-    integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 
 <body>
-  <h1>Tente não rir</h1>
-  <a class="pure-button pure-button-primary" href="/game">Começar</a>
-  <p>Envie seu trocadiho</p>
-  <form action="/pun" method="post" class="pure-form">
-    <fieldset>
-      <div class="pure-control-group">
-        <label for="question">Pergunta</label>
-        <textarea class="pure-input" name="question" id="question" rows="5"></textarea>
+  <div class="container-fluid text-center pt-3">
+    <h1>Tente não rir</h1>
+    <a class="btn btn-primary btn-lg my-2" href="/game" role="button">Começar</a>
+    <div class="row justify-content-center my-5">
+      <div class="col-md-6">
+        <h2>Envie seu trocadiho</h2>
+        <form action="/pun" method="post">
+          <div class="form-group">
+            <label for="question">Pergunta</label>
+            <textarea class="form-control" name="question" id="question" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="answer">Resposta</label>
+            <textarea class="form-control" name="answer" id="answer" rows="3"></textarea>
+          </div>
+          <div class="pure-controls">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+          </div>
+        </form>
+        <div class="my-3">
+          {{pun}}
+          {{#each error}}
+          <ul class="alert alert-danger" role="alert">
+            <li>{{this}}</li>
+          </ul>
+          {{/each}}
+        </div>
       </div>
-      <div class="pure-control-group">
-        <label for="answer">Resposta</label>
-        <textarea class="pure-input" name="answer" id="answer" rows="5"></textarea>
-      </div>
-      <div class="pure-controls">
-        <button type="submit" class="pure-button">Submit</button>
-      </div>
-    </fieldset>
-  </form>
-  <div>
-    {{pun}}
-    {{#each error}}
-    <ul class="erros">
-      <li>{{this}}</li>
-    </ul>
-    {{/each}}
+    </div>
   </div>
 </body>
 

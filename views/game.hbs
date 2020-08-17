@@ -8,8 +8,8 @@
     <meta name="author" content="" />
     <title>Game</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
-        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <script src="scripts/game.js"></script>
 </head>
@@ -19,31 +19,14 @@
             <video id="videoRemote" class="embed-responsive-item" width="320" height="240" autoplay></video>
         </div> --}}
 
-    <form class="pure-form pure-form-aligned">
-        <fieldset>
-            <div class="pure-control-group">
-                <label for="peer-id">Seu Peer ID</label>
-                <input type="text" id="peer-id" readonly />
-            </div>
-            <div class="pure-control-group">
-                <label for="aligned-password">Password</label>
-                <input type="password" id="aligned-password" placeholder="Password" />
-            </div>
-            <div class="pure-control-group">
-                <label for="aligned-email">Email Address</label>
-                <input type="email" id="aligned-email" placeholder="Email Address" />
-            </div>
-            <div class="pure-control-group">
-                <label for="aligned-foo">Supercalifragilistic Label</label>
-                <input type="text" id="aligned-foo" placeholder="Enter something here..." />
-            </div>
-            <div class="pure-controls">
-                <label for="aligned-cb" class="pure-checkbox">
-                    <input type="checkbox" id="aligned-cb" /> I&#x27;ve read the terms and conditions</label>
-                <button type="submit" class="pure-button pure-button-primary">Submit</button>
-            </div>
-        </fieldset>
-    </form>
+    <x-show-connection>
+        <slot name="true">
+            <x-peer-menu></x-peer-menu>
+        </slot>
+        <slot name="false">
+            <x-random-pun></x-random-pun>
+        </slot>
+    </x-show-connection>
 </body>
 
 </html>

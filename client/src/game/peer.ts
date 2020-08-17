@@ -1,24 +1,67 @@
 import Peer from 'peerjs'
 
-function setPeerId(id: string) {
-  const inputs = document.getElementsByTagName('input')
-  for (let i = 0; i < inputs.length; i++) {
-    const input = inputs[i]
-    if (input.id == "peer-id") {
-      input.value = id
-      break
+type ConnectionCallback = (conn: Peer.DataConnection) => void
+type Callback = () => void
+
+class MyPeer extends Peer {
+  private listenersConnection: ConnectionCallback[] = []
+  private listenersDisconnection: Callback[] = []
+
+  constructor() {
+    super()
+    this.on('connection', this.emitConnection)
+  }
+
+  emitConnection(conn: Peer.DataConnection) {
+    console.log('CONNECTION')
+
+    if (Object.keys(peer.connections).length > 1) {
+      conn.on('open', function () {
+        conn.send('Already connected to another client')
+        setTimeout(function () {
+          conn.close()
+        }, 500)
+      })
+
+      return
     }
+
+    conn.on('open', function () {
+      console.log('CONN OPEN')
+    })
+    conn.on('data', function (data) {
+      console.log('CONN DATA', data)
+    })
+    conn.on('close', () => {
+      console.log('CONN CLOSE')
+
+      this.emitDisconnection()
+    })
+
+    this.listenersConnection.forEach(cb => cb(conn))
+  }
+
+  eventConnection(cb: ConnectionCallback) {
+    this.listenersConnection.push(cb)
+  }
+
+  emitDisconnection() {
+    console.log('DISCONNECTION')
+    this.listenersDisconnection.forEach(cb => cb())
+  }
+
+  eventDisconnection(cb: () => void) {
+    this.listenersDisconnection.push(cb)
   }
 }
 
-const peer = new Peer()
+const peer = new MyPeer()
 
 peer.on('open', function () {
-  setPeerId(peer.id)
+  console.log('OPEN')
 })
-
 peer.on('close', function () {
-  console.log('Connection destroyed')
+  console.log('CLOSE')
 })
 
 peer.on('disconnected', function () {
@@ -26,7 +69,7 @@ peer.on('disconnected', function () {
 })
 
 peer.on('error', function (err) {
-  console.log("ERROR PEER", err)
+  console.log("PEER ERROR", err)
 })
 
 export default peer
